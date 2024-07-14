@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-
 namespace App\Service;
 
 use Carbon\Carbon;
 
 final class CalculatePriceService
 {
-    public function calculateWithDiscount(float $price, Carbon $birthdate, Carbon $startDate, ?Carbon $paymentDate): float{
-
+    public function calculateWithDiscount(float $price, Carbon $birthdate, Carbon $startDate, ?Carbon $paymentDate): float
+    {
         $discount = $this->calculateChildDiscount($price, $birthdate);
         $price = $price - $discount;
         $paymentDiscount = $this->calculatePaymentDiscount($price, $startDate, $paymentDate);
@@ -22,15 +21,15 @@ final class CalculatePriceService
     {
         $years = (int) $birthdate->diffInYears(Carbon::now()->startOfDay());
 
-        if($years < 3 || $years >= 18){
+        if ($years < 3 || $years >= 18) {
             return 0.0;
         }
 
-        if($years < 6){
+        if ($years < 6) {
             return $price * 0.8;
         }
 
-        if($years < 12){
+        if ($years < 12) {
             $discount = $price * 0.3;
 
             return min($discount, 4500);
@@ -39,13 +38,14 @@ final class CalculatePriceService
         return $price * 0.1;
     }
 
-    private function calculatePaymentDiscount(float $price, Carbon $startDate, ?Carbon $paymentDate): float {
-        if(
-            $paymentDate === null
+    private function calculatePaymentDiscount(float $price, Carbon $startDate, ?Carbon $paymentDate): float
+    {
+        if (
+            null === $paymentDate
             || Carbon::now()->startOfDay()->equalTo($startDate)
             || $paymentDate->equalTo($startDate)
             || $paymentDate->isAfter($startDate)
-        ){
+        ) {
             return 0.0;
         }
         $years = $startDate->year - $paymentDate->year;
@@ -54,16 +54,16 @@ final class CalculatePriceService
             'end' => Carbon::create(year: $startDate->year, month: 9, day: 30),
         ];
 
-        if($startDate->isBetween($dateInterval['start'], $dateInterval['end'])){
-            if ($paymentDate->month === 11 && $years === 0 || $years > 1) {
+        if ($startDate->isBetween($dateInterval['start'], $dateInterval['end'])) {
+            if (11 === $paymentDate->month && 0 === $years || $years > 1) {
                 return min($price * 0.07, 1500);
             }
 
-            if ($paymentDate->month === 12 && $years === 1) {
+            if (12 === $paymentDate->month && 1 === $years) {
                 return min($price * 0.05, 1500);
             }
 
-            if ($paymentDate->month === 1 && $years === 0) {
+            if (1 === $paymentDate->month && 0 === $years) {
                 return min($price * 0.03, 1500);
             }
 
@@ -85,16 +85,16 @@ final class CalculatePriceService
         if (
             $startDate->isBetween($dateIntervalCurrentYear['start'], $dateIntervalCurrentYear['end'])
             || $startDate->isBetween($dateIntervalNextYear['start'], $dateIntervalNextYear['end'])
-        ){
-            if ($paymentDate->month === 3 && $years === 0 || $years > 0) {
+        ) {
+            if (3 === $paymentDate->month && 0 === $years || $years > 0) {
                 return min($price * 0.07, 1500);
             }
 
-            if ($paymentDate->month === 04 && $years === 0) {
+            if (04 === $paymentDate->month && 0 === $years) {
                 return min($price * 0.05, 1500);
             }
 
-            if ($paymentDate->month === 05 && $years === 0) {
+            if (05 === $paymentDate->month && 0 === $years) {
                 return min($price * 0.03, 1500);
             }
 
@@ -103,16 +103,16 @@ final class CalculatePriceService
 
         unset($dateIntervalCurrentYear, $dateIntervalNextYear);
 
-        if($startDate->isAfter(Carbon::create($startDate->year, 1, 14)->endOfDay())){
-            if ($paymentDate->month === 8 && $years === 1 || $years > 1) {
+        if ($startDate->isAfter(Carbon::create($startDate->year, 1, 14)->endOfDay())) {
+            if (8 === $paymentDate->month && 1 === $years || $years > 1) {
                 return min($price * 0.07, 1500);
             }
 
-            if ($paymentDate->month === 9 && $years === 1) {
+            if (9 === $paymentDate->month && 1 === $years) {
                 return min($price * 0.05, 1500);
             }
 
-            if ($paymentDate->month === 10 && $years === 1) {
+            if (10 === $paymentDate->month && 1 === $years) {
                 return min($price * 0.03, 1500);
             }
 

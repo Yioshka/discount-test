@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Controller\Api\V1;
 
 use App\Service\CalculatePriceService;
@@ -20,7 +19,8 @@ final class PriceController
     #[Route(path: 'price/calculate', name: 'api_v1_price_calculate', methods: ['POST'])]
     public function __invoke(
         CalculatePriceService $calculatePriceService,
-        #[MapRequestPayload] Request $request,
+        #[MapRequestPayload]
+        Request $request,
     ): JsonResponse {
         $price = $calculatePriceService->calculateWithDiscount(
             price: $request->price,
@@ -32,7 +32,7 @@ final class PriceController
         return new JsonResponse([
             'success' => true,
             'data' => [
-                'price' => $price
+                'price' => $price,
             ],
             'message' => null,
         ], Response::HTTP_OK);
