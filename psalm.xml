@@ -21,7 +21,6 @@
     </enableExtensions>
 
     <plugins>
-        <!--<pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>-->
         <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
     </plugins>
 
@@ -33,7 +32,7 @@
         <directory name="config"/>
         <directory name="public"/>
         <directory name="src"/>
-        <!--<directory name="tests"/>-->
+        <directory name="tests"/>
         <file name="bin/console"/>
         <ignoreFiles>
             <directory name="var"/>
@@ -53,14 +52,14 @@
         <function name="var_export"/>
     </forbiddenFunctions>
 
-   <!-- <issueHandlers>
+    <issueHandlers>
         <MissingThrowsDocblock>
             <errorLevel type="suppress">
                 <directory name="tests"/>
             </errorLevel>
         </MissingThrowsDocblock>
         <MixedAssignment errorLevel="suppress"/>
-    </issueHandlers>-->
+    </issueHandlers>
 
     <ignoreExceptions>
         <classAndDescendants name="ReflectionException"/>
