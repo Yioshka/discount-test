@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<psalm
+        cacheDirectory="var/tmp/psalm"
+        checkForThrowsDocblock="true"
+        checkForThrowsInGlobalScope="true"
+        disableSuppressAll="true"
+        ensureArrayStringOffsetsExist="true"
+        errorLevel="1"
+        findUnusedCode="false"
+        findUnusedBaselineEntry="true"
+        findUnusedPsalmSuppress="true"
+        findUnusedVariablesAndParams="true"
+        memoizeMethodCallResults="true"
+        sealAllMethods="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <enableExtensions>
+        <extension name="random"/>
+    </enableExtensions>
+
+    <plugins>
+        <!--<pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>-->
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
+    </plugins>
+
+    <extraFiles>
+        <directory name="vendor" />
+    </extraFiles>
+
+    <projectFiles>
+        <directory name="config"/>
+        <directory name="public"/>
+        <directory name="src"/>
+        <!--<directory name="tests"/>-->
+        <file name="bin/console"/>
+        <ignoreFiles>
+            <directory name="var"/>
+            <directory name="vendor"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <forbiddenFunctions>
+        <function name="dd"/>
+        <function name="die"/>
+        <function name="dump"/>
+        <function name="echo"/>
+        <function name="empty"/>
+        <function name="eval"/>
+        <function name="exit"/>
+        <function name="print"/>
+        <function name="var_export"/>
+    </forbiddenFunctions>
+
+   <!-- <issueHandlers>
+        <MissingThrowsDocblock>
+            <errorLevel type="suppress">
+                <directory name="tests"/>
+            </errorLevel>
+        </MissingThrowsDocblock>
+        <MixedAssignment errorLevel="suppress"/>
+    </issueHandlers>-->
+
+    <ignoreExceptions>
+        <classAndDescendants name="ReflectionException"/>
+        <classAndDescendants name="LogicException"/>
+        <classAndDescendants name="RuntimeException"/>
+        <classAndDescendants name="Doctrine\DBAL\Exception"/>
+        <classAndDescendants name="JsonException"/>
+        <classAndDescendants name="Psr\Cache\CacheException"/>
+        <classAndDescendants name="Psr\Container\ContainerExceptionInterface"/>
+        <classAndDescendants name="Psr\SimpleCache\CacheException"/>
+        <classAndDescendants name="Revolt\EventLoop\UnsupportedFeatureException"/>
+        <classAndDescendants name="Symfony\Component\Serializer\Exception\ExceptionInterface"/>
+    </ignoreExceptions>
+</psalm>

@@ -49,6 +49,7 @@ final class CalculatePriceService
             return 0.0;
         }
         $years = $startDate->year - $paymentDate->year;
+        /** @var array{start: Carbon, end: Carbon} $dateInterval */
         $dateInterval = [
             'start' => Carbon::create(year: $startDate->year, month: 4),
             'end' => Carbon::create(year: $startDate->year, month: 9, day: 30),
@@ -72,11 +73,12 @@ final class CalculatePriceService
 
         unset($dateInterval);
 
+        /** @var array{start: Carbon, end: Carbon} $dateIntervalCurrentYear */
         $dateIntervalCurrentYear = [
             'start' => Carbon::create(year: $startDate->year, month: 10),
             'end' => Carbon::create(year: $startDate->year, month: 10, day: 31),
         ];
-
+        /** @var array{start: Carbon, end: Carbon} $dateIntervalNextYear */
         $dateIntervalNextYear = [
             'start' => Carbon::create(year: $startDate->year),
             'end' => Carbon::create(year: $startDate->year, day: 14),
@@ -103,7 +105,10 @@ final class CalculatePriceService
 
         unset($dateIntervalCurrentYear, $dateIntervalNextYear);
 
-        if ($startDate->isAfter(Carbon::create($startDate->year, 1, 14)->endOfDay())) {
+        /** @var Carbon $date */
+        $date = Carbon::create($startDate->year, 9, 30);
+
+        if ($startDate->isAfter($date->endOfDay())) {
             if (8 === $paymentDate->month && 1 === $years || $years > 1) {
                 return min($price * 0.07, 1500);
             }

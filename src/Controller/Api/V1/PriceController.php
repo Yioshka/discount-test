@@ -25,8 +25,8 @@ final class PriceController
         $price = $calculatePriceService->calculateWithDiscount(
             price: $request->price,
             birthdate: Carbon::parse($request->birthdate),
-            startDate: $request->startDate ? Carbon::parse($request->startDate) : Carbon::now()->startOfDay(),
-            paymentDate: $request->paymentDate ? Carbon::parse($request->paymentDate) : null
+            startDate: is_string($request->startDate) ? Carbon::parse($request->startDate) : Carbon::now()->startOfDay(),
+            paymentDate: is_string($request->paymentDate) ? Carbon::parse($request->paymentDate) : null
         );
 
         return new JsonResponse([
