@@ -20,7 +20,7 @@ final class ApiExceptionSubscriber implements EventSubscriberInterface
         if ($e instanceof HttpException) {
             $event->setResponse(
                 new JsonResponse([
-                    'success' => true,
+                    'success' => false,
                     'data' => null,
                     'message' => $e->getMessage(),
                 ], $e->getStatusCode())
@@ -30,7 +30,7 @@ final class ApiExceptionSubscriber implements EventSubscriberInterface
         }
 
         $event->setResponse(new JsonResponse([
-            'success' => true,
+            'success' => false,
             'data' => null,
             'message' => $e->getMessage(),
         ], Response::HTTP_INTERNAL_SERVER_ERROR));

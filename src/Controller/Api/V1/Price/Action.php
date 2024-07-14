@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Api\V1;
+namespace App\Controller\Api\V1\Price;
 
 use App\Service\CalculatePriceService;
 use Carbon\Carbon;
@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[Route(path: '/api/v1/')]
-final class PriceController
+final class Action
 {
     #[Route(path: 'price/calculate', name: 'api_v1_price_calculate', methods: ['POST'])]
     public function __invoke(
@@ -24,7 +24,7 @@ final class PriceController
     ): JsonResponse {
         $price = $calculatePriceService->calculateWithDiscount(
             price: $request->price,
-            birthdate: Carbon::parse($request->birthdate),
+            birthDate: Carbon::parse($request->birthDate),
             startDate: is_string($request->startDate) ? Carbon::parse($request->startDate) : Carbon::now()->startOfDay(),
             paymentDate: is_string($request->paymentDate) ? Carbon::parse($request->paymentDate) : null
         );

@@ -17,11 +17,5 @@
         <include>
             <directory>src</directory>
         </include>
-        <exclude>
-            <directory prefix="di.php">src</directory>
-        </exclude>
     </source>
-    <extensions>
-        <bootstrap class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
-    </extensions>
 </phpunit>
