@@ -20,11 +20,6 @@ _ide_helper.php
 ###< friendsofphp/php-cs-fixer ###
 
 ###> phpunit/phpunit ###
-/phpunit.xml
+.phpunit.cache
 .phpunit.result.cache
 ###< phpunit/phpunit ###
-
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###

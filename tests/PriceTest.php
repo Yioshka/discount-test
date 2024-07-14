@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\Controller\Api\V1\Price\Action;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 
-#[CoverClass(Action::class)]
 final class PriceTest extends WebTestCase
 {
     private static RouterInterface $router;
